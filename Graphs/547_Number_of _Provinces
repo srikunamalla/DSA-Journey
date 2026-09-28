@@ -1,0 +1,24 @@
+class Solution {
+public:
+  void dfs(int node,vector<int> &vis,vector<vector<int>> &isconnected){
+     vis[node] = 1;
+     for(int neig = 0;neig<isconnected.size();neig++){
+        if (isconnected[node][neig]==1 && vis[neig]==0){
+            dfs(neig,vis,isconnected);
+        }
+     }
+  }
+  
+    
+    int findCircleNum(vector<vector<int>> &isconnected){
+       vector<int> vis(isconnected.size(),0);
+       int count = 0;
+       for(int i = 0;i<isconnected.size();i++){
+            if (vis[i]==0){
+                count++;
+                dfs(i,vis,isconnected);
+             }
+        }
+        return count;
+    }
+};
