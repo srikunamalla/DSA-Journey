@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool word_check(int start,string &s,vector<string> &wordDict){
+        if(start==s.size()){
+            return true;
+        }
+        string wordbuild="";
+        for(int i=start;i<s.size();i++){
+            wordbuild+=s[i];
+            for(auto word : wordDict){
+                if(wordbuild==word){
+                     if(word_check(i+1,s,wordDict)){
+                         return true;
+                     }
+                }
+            }
+        }
+        return false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        // Your code goes here
+          return word_check(0,s,wordDict);
+    }
+};
