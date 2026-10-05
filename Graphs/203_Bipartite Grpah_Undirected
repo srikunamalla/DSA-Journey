@@ -1,0 +1,39 @@
+class Solution{
+public:
+    bool dfs(int node,vector<vector<int>> &adj,vector<int> &color){
+        
+        for(auto neig: adj[node]){
+            if(color[neig]==-1){
+                color[neig] = 1-color[node];
+                if(!dfs(neig,adj,color)){
+                    return false;
+                }
+            }
+            else if (color[neig]==color[node]){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    bool isBipartite(int V, vector<vector<int>> edges)  {
+        vector<int> color(V,-1);
+        vector<vector<int>> adj(V);
+        for(auto edge: edges){
+            int u = edge[0];
+            int v = edge[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+
+        }
+        for(int i = 0;i<V;i++){
+            if(color[i]==-1){
+                color[i] = 0;
+               if(!dfs(i,adj,color)){
+                    return false;
+               }
+            }
+        }
+        return true;
+    }
+};
